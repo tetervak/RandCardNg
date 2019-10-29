@@ -6,8 +6,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Random Card Ng';
-  card = new RandomCard();
+  public title = 'Random Card Ng';
+  public readonly card;
+  private readonly nextCard: RandomCard;
+  private nextImage: HTMLImageElement;
+  constructor() {
+    this.card = new RandomCard();
+    this.nextCard = new RandomCard();
+    this.nextImage = new Image();
+    this.preload();
+  }
+  private preload() {
+    this.nextImage.src = this.nextCard.imgSrc;
+  }
+  public next() {
+    this.card.copy(this.nextCard);
+    this.nextCard.reset();
+    this.preload();
+  }
 }
 
 class RandomCard {
@@ -34,6 +50,10 @@ class RandomCard {
       + RandomCard.SUITS[Math.floor(rand / 13)];
     // generate the image path
     this.imgSrc = `assets/images/cards/${cardNumber}.png`;
+  }
+  copy(card: RandomCard) {
+    this.cardName = card.cardName;
+    this.imgSrc = card.imgSrc;
   }
 }
 
