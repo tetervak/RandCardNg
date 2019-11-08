@@ -23,7 +23,7 @@ export class RandomCard {
     // generate the image path
     this.imgSrc = `assets/images/cards/${cardNumber}.png`;
   }
-  copy(card: RandomCard) {
+  public copy(card: RandomCard) {
     this.cardName = card.cardName;
     this.imgSrc = card.imgSrc;
   }
